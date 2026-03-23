@@ -18,7 +18,7 @@ services:
 
   # SvelteKit frontend
   web:
-    image: ghcr.io/fuiz-org/website:latest
+    image: registry.gitlab.com/fuiz/website:latest
     restart: unless-stopped
     env_file: .env
     environment:
@@ -28,7 +28,7 @@ services:
 
   # Game server (actix-web)
   game-server:
-    image: ghcr.io/fuiz-org/fuiz-server:latest
+    image: registry.gitlab.com/fuiz/game-backend/fuiz-server:latest
     restart: unless-stopped
     env_file: .env
     environment:
@@ -39,7 +39,7 @@ services:
 
   # Image storage server (actix-web)
   corkboard:
-    image: ghcr.io/fuiz-org/corkboard-server:latest
+    image: registry.gitlab.com/fuiz/game-backend/corkboard-server:latest
     restart: unless-stopped
     env_file: .env
     environment:
