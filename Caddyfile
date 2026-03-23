@@ -1,0 +1,18 @@
+{$FUIZ_DOMAIN:localhost} {
+	# Game server API (includes WebSocket upgrades)
+	handle /api/* {
+		uri strip_prefix /api
+		reverse_proxy game-server:8080
+	}
+
+	# Image storage
+	handle /corkboard/* {
+		uri strip_prefix /corkboard
+		reverse_proxy corkboard:5040
+	}
+
+	# Frontend (fallback)
+	handle {
+		reverse_proxy web:3000
+	}
+}

@@ -1,0 +1,56 @@
+services:
+  # Reverse proxy
+  caddy:
+    image: caddy
+    restart: unless-stopped
+    ports:
+      - "${FUIZ_PORT:-80}:80"
+      - "${FUIZ_TLS_PORT:-443}:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    env_file: .env
+    depends_on:
+      - web
+      - game-server
+      - corkboard
+
+  # SvelteKit frontend
+  web:
+    image: ghcr.io/fuiz-org/website:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - PORT=3000
+    expose:
+      - "3000"
+
+  # Game server (actix-web)
+  game-server:
+    image: ghcr.io/fuiz-org/fuiz-server:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - FUIZ_HOSTNAME=0.0.0.0
+      - FUIZ_PORT=8080
+    expose:
+      - "8080"
+
+  # Image storage server (actix-web)
+  corkboard:
+    image: ghcr.io/fuiz-org/corkboard-server:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - CORKBOARD_HOSTNAME=0.0.0.0
+      - CORKBOARD_PORT=5040
+    expose:
+      - "5040"
+    volumes:
+      - corkboard-data:/data
+
+volumes:
+  caddy-data:
+  caddy-config:
+  corkboard-data:
