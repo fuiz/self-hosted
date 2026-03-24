@@ -1,8 +1,0 @@
-# Local testing override — use locally built images
-services:
-  web:
-    image: fuiz-web:test
-  game-server:
-    image: fuiz-server:test
-  corkboard:
-    image: fuiz-corkboard:test
