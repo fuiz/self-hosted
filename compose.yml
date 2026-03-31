@@ -50,6 +50,7 @@ services:
     environment:
       - CORKBOARD_HOSTNAME=0.0.0.0
       - CORKBOARD_PORT=5040
+      - CORKBOARD_STORAGE_DIR=/data
     expose:
       - "5040"
     volumes:

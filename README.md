@@ -128,7 +128,7 @@ The stack consists of four services:
 | **caddy**       | Reverse proxy with automatic HTTPS via Let's Encrypt              |
 | **web**         | SvelteKit frontend (uses SQLite and local filesystem for storage) |
 | **game-server** | Game backend (Rust/actix-web)                                     |
-| **corkboard**   | Image storage server                                              |
+| **corkboard**   | Image storage server (filesystem-backed with in-memory cache)     |
 
 Caddy routes requests as follows:
 
