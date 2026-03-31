@@ -23,8 +23,13 @@ services:
     env_file: .env
     environment:
       - PORT=3000
+      - DATABASE_URL=/data/fuiz.db
+      - STORAGE_PATH=/data/storage
+      - KV_DATABASE_URL=/data/kv.db
     expose:
       - "3000"
+    volumes:
+      - web-data:/data
 
   # Game server (actix-web)
   game-server:
@@ -54,3 +59,4 @@ volumes:
   caddy-data:
   caddy-config:
   corkboard-data:
+  web-data:

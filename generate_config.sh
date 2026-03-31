@@ -39,6 +39,13 @@ FUIZ_ALLOWED_ORIGINS=["$FULL_URL"]
 
 # Corkboard CORS
 CORKBOARD_ALLOWED_ORIGINS=["$FULL_URL"]
+
+# AI configuration (optional)
+# Uncomment and configure to enable AI-powered tag derivation for library quizzes
+# Supports any OpenAI-compatible API (OpenAI, Ollama, OpenRouter, LiteLLM, etc.)
+# OPENAI_BASE_URL=http://localhost:11434/v1
+# OPENAI_API_KEY=
+# AI_MODEL=gpt-4o-mini
 EOF
 
 echo "Configuration written to .env"
