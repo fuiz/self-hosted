@@ -123,12 +123,12 @@ docker compose up -d
 
 The stack consists of four services:
 
-| Service | Description |
-|---|---|
-| **caddy** | Reverse proxy with automatic HTTPS via Let's Encrypt |
-| **web** | SvelteKit frontend (uses SQLite and local filesystem for storage) |
-| **game-server** | Game backend (Rust/actix-web) |
-| **corkboard** | Image storage server |
+| Service         | Description                                                       |
+| --------------- | ----------------------------------------------------------------- |
+| **caddy**       | Reverse proxy with automatic HTTPS via Let's Encrypt              |
+| **web**         | SvelteKit frontend (uses SQLite and local filesystem for storage) |
+| **game-server** | Game backend (Rust/actix-web)                                     |
+| **corkboard**   | Image storage server                                              |
 
 Caddy routes requests as follows:
 
@@ -156,11 +156,11 @@ Docker Compose automatically picks up `compose.override.yml` alongside `compose.
 
 Persistent data lives in Docker volumes:
 
-| Volume | Contents |
-|---|---|
-| `web-data` | SQLite database, KV store, and uploaded media |
-| `corkboard-data` | Images stored by the corkboard service |
-| `caddy-data` | TLS certificates |
-| `caddy-config` | Caddy configuration state |
+| Volume           | Contents                                      |
+| ---------------- | --------------------------------------------- |
+| `web-data`       | SQLite database, KV store, and uploaded media |
+| `corkboard-data` | Images stored by the corkboard service        |
+| `caddy-data`     | TLS certificates                              |
+| `caddy-config`   | Caddy configuration state                     |
 
 To back up your data, use `docker compose cp` or back up the volume directories directly.
