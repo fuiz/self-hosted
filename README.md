@@ -14,6 +14,7 @@ This repository contains configurations and instructions for deploying a full Fu
   - [Install required dependencies](#install-required-dependencies)
 - [Configuration](#configuration)
   - [AI (optional)](#ai-optional)
+  - [Library publishing and Google Drive backups (optional)](#library-publishing-and-google-drive-backups-optional)
 - [Updating](#updating)
 - [Additional Notes](#additional-notes)
   - [Architecture](#architecture)
@@ -88,6 +89,14 @@ docker compose up -d
 
 Your Fuiz instance should now be available at `https://your.domain` (or `https://localhost` for local).
 
+On `localhost`, Caddy signs the certificate with its own local authority, so browsers show a warning the first time. Accept it, or trust Caddy's root certificate on your machine:
+
+```bash
+docker compose cp caddy:/data/caddy/pki/authorities/local/root.crt caddy-root.crt
+```
+
+Then import `caddy-root.crt` into your system or browser certificate store.
+
 ### AI (optional)
 
 Fuiz can use an AI model to automatically derive tags for library quizzes. This is optional and disabled by default.
@@ -102,6 +111,15 @@ AI_MODEL=gpt-4o-mini
 
 Any OpenAI-compatible API works: OpenAI, Ollama, OpenRouter, LiteLLM, etc.
 
+### Library publishing and Google Drive backups (optional)
+
+Both features are off unless configured, and both take their settings from the same `.env` file:
+
+- Publishing quizzes to a public library needs a GitLab application and a library repository. See [GITLAB_PUBLISHING_SETUP.md](https://gitlab.com/fuiz/website/-/blob/main/GITLAB_PUBLISHING_SETUP.md).
+- Google Drive backups need a Google application. See the [website README](https://gitlab.com/fuiz/website#developing) for the variables.
+
+Restart with `docker compose up -d` after editing `.env`.
+
 ## Updating
 
 Pull the latest version of this repository:
@@ -109,6 +127,14 @@ Pull the latest version of this repository:
 ```bash
 git pull
 ```
+
+Your `.env` is not touched by `git pull`. If an update adds new settings, compare your `.env` with `.env.example`, or regenerate it. The configuration script refuses to replace an existing `.env` unless you pass `--overwrite`, and then keeps the previous file as `.env.old`:
+
+```bash
+./generate_config.sh --overwrite your.domain
+```
+
+Copy any settings you added by hand, such as AI or publishing settings, from `.env.old` into the new `.env`.
 
 Then pull all the latest images and restart:
 
